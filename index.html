@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Copy to Clipboard</title>
+</head>
+<body>
+    <script>
+        // Receiving message from Lua via NUI
+        window.addEventListener('message', function(event) {
+            if (event.data.type === "copyToClipboard") {
+                copyToClipboard(event.data.text);
+            }
+        });
+
+        // Function to copy text to clipboard
+        function copyToClipboard(text) {
+            const el = document.createElement('textarea');
+            el.value = text;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+            // console.log("Selected prop hash copied to clipboard: ", text);
+        }
+    </script>
+</body>
+</html>
